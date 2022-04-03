@@ -24,6 +24,7 @@ type Props = {
 export const TaskForm = ({ taskToEdit, openModal, onModalClose }: Props) => {
   const [title, setTitle] = useState<string>('');
   const [priority, setPriority] = useState<string>('');
+  const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
   const dispatch = useDispatch();
 
   const handleCreate = () => {
@@ -31,6 +32,11 @@ export const TaskForm = ({ taskToEdit, openModal, onModalClose }: Props) => {
     setTitle('');
     onModalClose();
   };
+
+  useEffect(() => {
+    if (title.trim().length === 0 || priority.trim().length === 0) setIsButtonDisabled(true);
+    else setIsButtonDisabled(false);
+  }, [title, priority]);
 
   const handleSave = () => {
     if (taskToEdit && taskToEdit.id && taskToEdit.title) {
@@ -77,7 +83,7 @@ export const TaskForm = ({ taskToEdit, openModal, onModalClose }: Props) => {
           <Button variant="outlined" onClick={(e) => onModalClose()}>
             Cancel
           </Button>
-          <Button variant="contained" onClick={handleSubmit}>
+          <Button variant="contained" onClick={handleSubmit} disabled={isButtonDisabled}>
             {taskToEdit ? 'Save' : 'Create'}
           </Button>
         </DialogActions>
