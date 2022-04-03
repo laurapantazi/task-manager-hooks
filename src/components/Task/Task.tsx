@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import Checkbox from '@mui/material/Checkbox';
@@ -16,7 +16,7 @@ type Props = {
   task: TaskType;
   onTaskDelete: () => void;
 };
-export const Task = ({ task, onTaskDelete }: Props) => {
+const Task = ({ task, onTaskDelete }: Props) => {
   const [openModal, setOpenModal] = useState(false);
   const dispatch = useDispatch();
 
@@ -66,6 +66,8 @@ export const Task = ({ task, onTaskDelete }: Props) => {
     </>
   );
 };
+
+export default memo(Task);
 
 Task.propTypes = {
   task: PropTypes.object,

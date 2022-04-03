@@ -1,7 +1,7 @@
 import './style.js';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { State } from '../../store/reducers/index';
-import { Task } from '../Task/Task';
+import Task from '../Task/Task';
 import List from '@mui/material/List';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTasks } from '../../store/actions/index';
@@ -9,7 +9,7 @@ import { Task as TaskType } from '../../types/Task';
 import AlertSnackbar from './AlertSnackbar';
 import Box from '@mui/material/Box';
 
-export default function Tasks() {
+const Tasks = () => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -18,13 +18,17 @@ export default function Tasks() {
 
   const allTasks: TaskType[] = useSelector((state: State) => state.tasks);
 
+  const handleAlert = useCallback(() => {
+    setOpen(true);
+  }, []);
+
   return (
     <Box display="flex" flexDirection="column" style={{ width: '80vw' }} alignItems="center" justifyContent="center">
       <AlertSnackbar open={open} setOpen={setOpen} />
       {allTasks && allTasks.length > 0 ? (
         allTasks.map((task) => (
           <List sx={{ width: '100%', maxWidth: 1200 }} key={task.id}>
-            <Task onTaskDelete={() => setOpen(true)} task={task} />
+            <Task task={task} onTaskDelete={handleAlert} />
           </List>
         ))
       ) : (
@@ -32,4 +36,6 @@ export default function Tasks() {
       )}
     </Box>
   );
-}
+};
+
+export default Tasks;

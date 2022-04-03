@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import { Task } from './Task';
+import Task from './Task';
 
 test('<Task>', () => {
   const mockTask = {
