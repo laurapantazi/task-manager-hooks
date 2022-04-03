@@ -1,6 +1,29 @@
-# Getting Started with Create React App
+# Task Manager with Hooks
+
+## Description
+
+## Features
+* [x] React with Typescript
+* [x] Redux
+* [x] Redux Saga
+* [x] Material UI
+* [x] axios
+* [x] @redux-devtools/extension
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+
+## Run locally
+```
+# Clone or download repository
+
+# Install dependencies
+yarn install
+
+# Start server
+yarn start-local
+
+```
 
 ## Available Scripts
 
